@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOCX to PDF Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #000;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+            background-size: 300% 300%;
+            animation: rainbowAnimation 8s infinite;
+        }
+
+        @keyframes rainbowAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .watermark {
+            position: absolute;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.1);
+            font-weight: bold;
+            transform: rotate(-45deg);
+            animation: moveText 5s linear infinite;
+        }
+
+        .watermark:nth-child(1) { top: 10px; left: 10px; }
+        .watermark:nth-child(2) { top: 10px; right: 10px; }
+        .watermark:nth-child(3) { bottom: 10px; left: 10px; }
+        .watermark:nth-child(4) { bottom: 10px; right: 10px; }
+
+        @keyframes moveText {
+            0% { transform: translateX(0) rotate(-45deg); }
+            100% { transform: translateX(100vw) rotate(-45deg); }
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px 40px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 2px dashed #4facfe;
+            border-radius: 8px;
+            background: #f9f9f9;
+            cursor: pointer;
+        }
+
+        button {
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            border: none;
+            padding: 10px 25px;
+            font-size: 1em;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #0078fe, #00b4fe);
+        }
+    </style>
+</head>
+<body>
+    <div class="watermark">Exclusive Property of Suneet</div>
+    <div class="watermark">Exclusive Property of Suneet</div>
+    <div class="watermark">Exclusive Property of Suneet</div>
+    <div class="watermark">Exclusive Property of Suneet</div>
+
+    <div class="container">
+        <h1>Upload DOCX to Convert to PDF</h1>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".docx" required>
+            <button type="submit">Convert to PDF</button>
+        </form>
+    </div>
+</body>
+</html>
