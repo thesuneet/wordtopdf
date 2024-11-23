@@ -7,107 +7,93 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
             position: relative;
-            overflow: hidden;
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-            background-size: 300% 300%;
-            animation: rainbowAnimation 8s infinite;
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(45deg, rgb(44, 62, 80), rgb(231, 76, 60), rgb(46, 204, 113), rgb(52, 152, 219), rgb(155, 89, 182));
+            background-size: 400% 400%;
+            animation: colorChange 3s linear infinite;
         }
 
-        @keyframes rainbowAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes colorChange {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 36px;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #f0f0f0;
+        }
+
+        .metadata {
+            list-style-type: none;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            margin-top: 30px;
+            display: inline-block;
+            text-align: left;
+            border-radius: 8px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
 
         .watermark {
             position: absolute;
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.1);
-            font-weight: bold;
-            transform: rotate(-45deg);
-            animation: moveText 5s linear infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27200%27 height=%27200%27%3E%3Ctext x=%270%27 y=%27100%27 font-size=%2720%27 fill=%27rgba(255, 255, 255, 0.1)%27 transform=%27rotate(-45 20 20)%27%3EExclusive Property of Suneet%3C/text%3E%3C/svg%3E') repeat;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
         }
 
-        .watermark:nth-child(1) { top: 10px; left: 10px; }
-        .watermark:nth-child(2) { top: 10px; right: 10px; }
-        .watermark:nth-child(3) { bottom: 10px; left: 10px; }
-        .watermark:nth-child(4) { bottom: 10px; right: 10px; }
-
-        @keyframes moveText {
-            0% { transform: translateX(0) rotate(-45deg); }
-            100% { transform: translateX(100vw) rotate(-45deg); }
-        }
-
-        .container {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 25px 35px;
-            border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 600px;
-        }
-
-        h1 {
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        h2 {
-            font-size: 1.4em;
-            margin-bottom: 15px;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            text-align: left;
-        }
-
-        li {
-            margin: 5px 0;
-            line-height: 1.6;
-        }
-
-        a {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 25px;
-            background: #4facfe;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1em;
-            transition: background 0.3s ease;
-        }
-
-        a:hover {
-            background: #0078fe;
+        .download-link {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="watermark">Exclusive Property of Suneet</div>
-    <div class="watermark">Exclusive Property of Suneet</div>
-    <div class="watermark">Exclusive Property of Suneet</div>
-    <div class="watermark">Exclusive Property of Suneet</div>
+    <div class="watermark"></div>
 
-    <div class="container">
-        <h1>Conversion Successful!</h1>
-        <h2>Your DOCX file has been successfully converted to PDF.</h2>
-        <ul>
-            <li><strong>File Name:</strong> example.docx</li>
-            <li><strong>Converted To:</strong> example.pdf</li>
-        </ul>
-        <a href="/download/example.pdf" download>Download PDF</a>
-    </div>
+    <h1>File Conversion Result</h1>
+
+    <h2>Metadata</h2>
+    <ul class="metadata">
+        {% for key, value in metadata.items() %}
+            <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Download PDF</h2>
+    <p class="download-link">
+        <a href="{{ url_for('download_file', filename=pdf_filename) }}" download>Click here to download your PDF</a>
+    </p>
+    
+    <p><a href="/">Convert another file</a></p>
 </body>
 </html>
